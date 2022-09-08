@@ -330,7 +330,7 @@ export class PythonRenderer extends ConvenienceRenderer {
         return ["'", name, "'"];
     }
 
-    protected pythonType(t: Type): Sourcelike {
+    protected pythonType(t: Type, isNested: boolean = false): Sourcelike {
         const actualType = followTargetType(t);
         return matchType<Sourcelike>(
             actualType,
@@ -340,18 +340,18 @@ export class PythonRenderer extends ConvenienceRenderer {
             _integerType => "int",
             _doubletype => "float",
             _stringType => "str",
-            arrayType => [this.withTyping("List"), "[", this.pythonType(arrayType.items), "]"],
+            arrayType => [this.withTyping("List"), "[", this.pythonType(arrayType.items, true), "]"],
             classType => this.namedType(classType),
-            mapType => [this.withTyping("Dict"), "[str, ", this.pythonType(mapType.values), "]"],
+            mapType => [this.withTyping("Dict"), "[str, ", this.pythonType(mapType.values, true), "]"],
             enumType => this.namedType(enumType),
             unionType => {
                 const maybeNullable = nullableFromUnion(unionType);
                 if (maybeNullable !== null) {
                     let rest: string[] = [];
-                    if (!this.getAlphabetizeProperties() && this.pyOptions.features.dataClasses) rest.push(" = None");
-                    return [this.withTyping("Optional"), "[", this.pythonType(maybeNullable), "]", ...rest];
+                    if (!this.getAlphabetizeProperties() && this.pyOptions.features.dataClasses && !isNested) rest.push(" = None");
+                    return [this.withTyping("Optional"), "[", this.pythonType(maybeNullable, true), "]", ...rest];
                 }
-                const memberTypes = Array.from(unionType.sortedMembers).map(m => this.pythonType(m));
+                const memberTypes = Array.from(unionType.sortedMembers).map(m => this.pythonType(m, true));
                 return [this.withTyping("Union"), "[", arrayIntercalate(", ", memberTypes), "]"];
             },
             transformedStringType => {
