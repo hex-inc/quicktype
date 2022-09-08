@@ -21,7 +21,6 @@ build/*/node_modules
 /test/elm/libsysconfcpus/
 /test/runs
 test/fixtures/cplusplus/json.hpp
-/dist
 test/fixtures/objective-c/quicktype
 *.xcbkptlist
 *.xcuserstate
