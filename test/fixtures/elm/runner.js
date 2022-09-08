@@ -1,14 +1,17 @@
-const Elm = require("./elm.js");
+use strict;
+
+const { Elm } = require("./elm.js");
 const fs = require("fs");
 
-let ports = Elm.Main.worker().ports;
+const app = Elm.Main.init();
 
-ports.toJS.subscribe(function(result) {
+app.ports.toJS.subscribe(result => {
     if (result.startsWith("Error: ")) {
-        process.stderr.write(result + "\n", function() { process.exit(1); });
+        process.stderr.write(`${result}\n`, () => process.exit(1));
     } else {
-        process.stdout.write(result + "\n", function() { process.exit(0); });
+        process.stdout.write(`${result}\n`, () => process.exit(0));
     }
 });
 
-ports.fromJS.send(fs.readFileSync(process.argv[2], "utf8"));
+const ARG = 2
+app.ports.fromJS.send(fs.readFileSync(process.argv[ARG], "utf8"));
