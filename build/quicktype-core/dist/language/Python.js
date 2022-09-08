@@ -246,7 +246,7 @@ class PythonRenderer extends ConvenienceRenderer_1.ConvenienceRenderer {
     }
     pythonType(t) {
         const actualType = Transformers_1.followTargetType(t);
-        return TypeUtils_1.matchType(actualType, _anyType => this.withTyping("Any"), _nullType => "None", _boolType => "bool", _integerType => "int", _doubletype => "float", _stringType => "str", arrayType => [this.withTyping("List"), "[", this.pythonType(arrayType.items), "]"], classType => this.namedType(classType), mapType => [this.withTyping("Dict"), "[str, ", this.pythonType(mapType.values), "]"], enumType => this.namedType(enumType), unionType => {
+        return TypeUtils_1.matchType(actualType, _anyType => this.withTyping("Any"), _nullType => "Test", _boolType => "bool", _integerType => "int", _doubletype => "float", _stringType => "str", arrayType => [this.withTyping("List"), "[", this.pythonType(arrayType.items), "]"], classType => this.namedType(classType), mapType => [this.withTyping("Dict"), "[str, ", this.pythonType(mapType.values), "]"], enumType => this.namedType(enumType), unionType => {
             const maybeNullable = TypeUtils_1.nullableFromUnion(unionType);
             if (maybeNullable !== null) {
                 let rest = [];

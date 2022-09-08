@@ -335,7 +335,7 @@ export class PythonRenderer extends ConvenienceRenderer {
         return matchType<Sourcelike>(
             actualType,
             _anyType => this.withTyping("Any"),
-            _nullType => "None",
+            _nullType => "Test",
             _boolType => "bool",
             _integerType => "int",
             _doubletype => "float",
