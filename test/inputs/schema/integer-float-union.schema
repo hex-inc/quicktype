@@ -1,9 +1,0 @@
-{
-  "type": "object",
-  "properties": {
-    "number": {
-      "oneOf": [{ "type": "integer" }, { "type": "number" }]
-    }
-  },
-  "required": ["number"]
-}
