@@ -1,4 +1,7 @@
 {
+  "workspaces": [
+    "build/quicktype-core"
+  ],
   "name": "quicktype",
   "version": "15.0.262",
   "license": "Apache-2.0",

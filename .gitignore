@@ -14,7 +14,7 @@ test/fixtures/rust/target
 test/fixtures/java/target
 test/fixtures/java-lombok/target
 
-build/*/dist
+build/*-input/dist
 build/*/node_modules
 
 *.log
