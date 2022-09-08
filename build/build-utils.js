@@ -308,10 +308,10 @@ function publish(packageName, force, print, update) {
     const srcDir = srcDirForPackage(packageName);
     const hasUncommittedChanges = gitHasDiff("HEAD", srcDir);
 
-    if (hasUncommittedChanges) {
-        console.error(`There are uncommitted change in ${srcDir} - cowardly refusing to publish package`);
-        process.exit(1);
-    }
+    // if (hasUncommittedChanges) {
+    //     console.error(`There are uncommitted change in ${srcDir} - cowardly refusing to publish package`);
+    //     process.exit(1);
+    // }
 
     const latestVersion = latestPackageVersion(packageName);
 
@@ -333,7 +333,7 @@ function publish(packageName, force, print, update) {
         setCommit(pkg, commit);
         update(pkg);
     });
-    runNPM(["publish"]);
+    // runNPM(["publish"]);
 }
 
 function usage() {
