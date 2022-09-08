@@ -335,11 +335,11 @@ export class PythonRenderer extends ConvenienceRenderer {
         return matchType<Sourcelike>(
             actualType,
             _anyType => this.withTyping("Any"),
-            _nullType => "Test",
+            _nullType => "None",
             _boolType => "bool",
             _integerType => "int",
             _doubletype => "float",
-            _stringType => "str",
+            _stringType => "string",
             arrayType => [this.withTyping("List"), "[", this.pythonType(arrayType.items), "]"],
             classType => this.namedType(classType),
             mapType => [this.withTyping("Dict"), "[str, ", this.pythonType(mapType.values), "]"],
