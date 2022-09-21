@@ -48,7 +48,7 @@ export declare class PythonRenderer extends ConvenienceRenderer {
     protected withImport(module: string, name: string): Sourcelike;
     protected withTyping(name: string): Sourcelike;
     protected namedType(t: Type): Sourcelike;
-    protected pythonType(t: Type): Sourcelike;
+    protected pythonType(t: Type, isNested?: boolean): Sourcelike;
     protected declarationLine(t: Type): Sourcelike;
     protected declareType<T extends Type>(t: T, emitter: () => void): void;
     protected emitClassMembers(t: ClassType): void;
