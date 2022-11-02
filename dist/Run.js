@@ -318,7 +318,7 @@ class Run {
         const [inputData, targetLanguage] = preRunResult;
         const graph = this.makeGraphSync(inputData);
         [...graph.allNamedTypes()].map(t => {
-            JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`);
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
         });
         return this.renderGraph(targetLanguage, graph);
     }
