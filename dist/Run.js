@@ -280,16 +280,16 @@ class Run {
         });
         const enumInference = allInputs.needSchemaProcessing ? "all" : this._options.inferEnums ? "infer" : "none";
         this.time("expand strings", () => (graph = ExpandStrings_1.expandStrings(this, graph, enumInference)));
-        console.error("6");
-        [...graph.allNamedTypes()].map(t => {
-            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
-        });
-        this.time("flatten unions", () => ([graph, unionsDone] = FlattenUnions_1.flattenUnions(graph, stringTypeMapping, conflateNumbers, false, debugPrintReconstitution)));
-        console.error("7");
-        [...graph.allNamedTypes()].map(t => {
-            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
-        });
-        Support_1.assert(unionsDone, "We should only have to flatten unions once after expanding strings");
+        // console.error("6");
+        // [...graph.allNamedTypes()].map(t => {
+        //     console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        // });
+        // this.time("flatten unions", () => ([graph, unionsDone] = FlattenUnions_1.flattenUnions(graph, stringTypeMapping, conflateNumbers, false, debugPrintReconstitution)));
+        // console.error("7");
+        // [...graph.allNamedTypes()].map(t => {
+        //     console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        // });
+        // Support_1.assert(unionsDone, "We should only have to flatten unions once after expanding strings");
         console.error("8");
         [...graph.allNamedTypes()].map(t => {
             console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
