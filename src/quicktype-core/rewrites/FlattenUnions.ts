@@ -37,7 +37,12 @@ export function flattenUnions(
     let foundIntersection = false;
     const groups = makeGroupsToFlatten(nonCanonicalUnions, members => {
         messageAssert(members.size > 0, "IRNoEmptyUnions", {});
-        if (!iterableSome(members, m => m instanceof IntersectionType)) return true;
+        if (!iterableSome(members, m => m instanceof IntersectionType)) {
+            if (new Set([...members].flatMap((member) => [...member.getNames().names])).size <= 1) {
+                return true;
+            }
+            return false;
+        }
 
         // FIXME: This is stupid.  `flattenUnions` returns true when no more union
         // flattening is necessary, but `resolveIntersections` can introduce new
