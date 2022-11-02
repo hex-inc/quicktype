@@ -38,7 +38,9 @@ export function flattenUnions(
     const groups = makeGroupsToFlatten(nonCanonicalUnions, members => {
         messageAssert(members.size > 0, "IRNoEmptyUnions", {});
         if (!iterableSome(members, m => m instanceof IntersectionType)) {
-            if (new Set([...members].flatMap((member) => [...member.getNames().names])).size <= 1) {
+            const memberNames = [...members].map((member) => [...member.getNames().names]);
+            const flatNames = memberNames.reduce((accumulator, value) => accumulator.concat(value), []);
+            if (new Set(flatNames).size <= 1) {
                 return true;
             }
             return false;
