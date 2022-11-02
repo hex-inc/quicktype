@@ -223,7 +223,7 @@ class Run {
             console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
         });
 
-        let unionsDone = false;
+        let unionsDone = true; // Lets not flatten unions... ?
         if (allInputs.needSchemaProcessing || !this._options.ignoreJsonRefs) {
             let intersectionsDone = false;
             do {
