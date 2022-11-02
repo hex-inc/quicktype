@@ -45,6 +45,13 @@ function flattenUnions(graph, stringTypeMapping, conflateNumbers, makeObjectType
         foundIntersection = true;
         return false;
     });
+
+    console.error("groups!")
+    groups.map(group => {
+        console.error(`group: [${[...group.map(typ => typ.getNames().names)].join(", ")}]`)
+        
+    });
+
     graph = graph.rewrite("flatten unions", stringTypeMapping, false, groups, debugPrintReconstitution, replace);
     // console.log(`flattened ${nonCanonicalUnions.size} of ${unions.size} unions`);
     return [graph, !needsRepeat && !foundIntersection];
