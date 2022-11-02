@@ -203,6 +203,12 @@ class Run {
     processGraph(allInputs, graphInputs) {
         const { targetLanguage, stringTypeMapping, conflateNumbers, typeBuilder } = graphInputs;
         let graph = typeBuilder.finish();
+
+        console.error("1");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
+
         if (this._options.debugPrintGraph) {
             graph.setPrintOnRewrite();
             graph.printGraph();
@@ -211,6 +217,12 @@ class Run {
         if (typeBuilder.didAddForwardingIntersection || !this._options.ignoreJsonRefs) {
             this.time("remove indirection intersections", () => (graph = TypeGraph_1.removeIndirectionIntersections(graph, stringTypeMapping, debugPrintReconstitution)));
         }
+
+        console.error("2");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
+
         let unionsDone = false;
         if (allInputs.needSchemaProcessing || !this._options.ignoreJsonRefs) {
             let intersectionsDone = false;
@@ -227,6 +239,12 @@ class Run {
                 }
             } while (!intersectionsDone || !unionsDone);
         }
+
+        console.error("3");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
+
         this.time("replace object type", () => (graph = ReplaceObjectType_1.replaceObjectType(graph, stringTypeMapping, conflateNumbers, targetLanguage.supportsFullObjectType, debugPrintReconstitution)));
         do {
             this.time("flatten unions", () => ([graph, unionsDone] = FlattenUnions_1.flattenUnions(graph, stringTypeMapping, conflateNumbers, false, debugPrintReconstitution)));
@@ -240,6 +258,12 @@ class Run {
                 this.time("combine classes cleanup", () => (graph = CombineClasses_1.combineClasses(this, combinedGraph, this._options.alphabetizeProperties, false, true, debugPrintReconstitution)));
             }
         }
+
+        console.error("4");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
+
         if (this._options.inferMaps) {
             for (;;) {
                 const newGraph = this.time("infer maps", () => InferMaps_1.inferMaps(graph, stringTypeMapping, true, debugPrintReconstitution));
@@ -249,19 +273,48 @@ class Run {
                 graph = newGraph;
             }
         }
+
+        console.error("5");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         const enumInference = allInputs.needSchemaProcessing ? "all" : this._options.inferEnums ? "infer" : "none";
         this.time("expand strings", () => (graph = ExpandStrings_1.expandStrings(this, graph, enumInference)));
+        console.error("6");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         this.time("flatten unions", () => ([graph, unionsDone] = FlattenUnions_1.flattenUnions(graph, stringTypeMapping, conflateNumbers, false, debugPrintReconstitution)));
+        console.error("7");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         Support_1.assert(unionsDone, "We should only have to flatten unions once after expanding strings");
+        console.error("8");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
+        console.error("9");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         if (allInputs.needSchemaProcessing) {
             this.time("flatten strings", () => (graph = FlattenStrings_1.flattenStrings(graph, stringTypeMapping, debugPrintReconstitution)));
         }
+        console.error("10");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         this.time("none to any", () => (graph = TypeGraph_1.noneToAny(graph, stringTypeMapping, debugPrintReconstitution)));
         if (!targetLanguage.supportsOptionalClassProperties) {
             this.time("optional to nullable", () => (graph = TypeGraph_1.optionalToNullable(graph, stringTypeMapping, debugPrintReconstitution)));
         }
         this.time("fixed point", () => (graph = graph.rewriteFixedPoint(false, debugPrintReconstitution)));
         this.time("make transformations", () => (graph = MakeTransformations_1.makeTransformations(this, graph, targetLanguage)));
+        console.error("11");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         this.time("flatten unions", () => ([graph, unionsDone] = FlattenUnions_1.flattenUnions(graph, stringTypeMapping, conflateNumbers, false, debugPrintReconstitution)));
         Support_1.assert(unionsDone, "We should only have to flatten unions once after making transformations");
         // Sometimes we combine classes in ways that will the order come out
@@ -275,6 +328,10 @@ class Run {
         if (this._options.debugPrintGraph) {
             console.log("\n# gather names");
         }
+        console.error("12");
+        [...graph.allNamedTypes()].map(t => {
+            console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+        });
         this.time("gather names", () => GatherNames_1.gatherNames(graph, !allInputs.needSchemaProcessing, this._options.debugPrintGatherNames));
         if (this._options.debugPrintGraph) {
             graph.printGraph();
