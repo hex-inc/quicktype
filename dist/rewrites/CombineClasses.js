@@ -4,7 +4,7 @@ const Type_1 = require("../Type");
 const TypeUtils_1 = require("../TypeUtils");
 const Support_1 = require("../support/Support");
 const UnifyClasses_1 = require("../UnifyClasses");
-const REQUIRED_OVERLAP = 3 / 4;
+const REQUIRED_OVERLAP = 99 / 100;
 // FIXME: Allow some type combinations to unify, like different enums,
 // enums with strings, integers with doubles, maps with objects of
 // the correct type.
