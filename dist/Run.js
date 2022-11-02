@@ -307,6 +307,9 @@ class Run {
             }
             const [inputData, targetLanguage] = preRunResult;
             const graph = yield this.makeGraph(inputData);
+            [...graph.allNamedTypes()].map(t => {
+                console.error(JSON.stringify(`type.getNames = ${[...t.getNames().names]} type.getCombinedName() = ${t.getCombinedName()}`));
+            });
             return this.renderGraph(targetLanguage, graph);
         });
     }
