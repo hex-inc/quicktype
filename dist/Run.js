@@ -232,6 +232,7 @@ class Run {
             this.time("flatten unions", () => ([graph, unionsDone] = FlattenUnions_1.flattenUnions(graph, stringTypeMapping, conflateNumbers, false, debugPrintReconstitution)));
         } while (!unionsDone);
         if (this._options.combineClasses) {
+            console.error("Combinning Clsses")
             const combinedGraph = this.time("combine classes", () => CombineClasses_1.combineClasses(this, graph, this._options.alphabetizeProperties, true, false, debugPrintReconstitution));
             if (combinedGraph === graph) {
                 graph = combinedGraph;
