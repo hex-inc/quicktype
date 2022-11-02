@@ -28,7 +28,7 @@ function flattenUnions(graph, stringTypeMapping, conflateNumbers, makeObjectType
     const groups = TypeUtils_1.makeGroupsToFlatten(nonCanonicalUnions, members => {
         Messages_1.messageAssert(members.size > 0, "IRNoEmptyUnions", {});
         if (!collection_utils_1.iterableSome(members, m => m instanceof Type_1.IntersectionType))
-            return true;
+            return false;
         // FIXME: This is stupid.  `flattenUnions` returns true when no more union
         // flattening is necessary, but `resolveIntersections` can introduce new
         // unions that might require flattening, so now `flattenUnions` needs to take
